@@ -21,7 +21,7 @@
 	</div>
 	<?php
 
-		// Invoca o arquivo que faz a conexão com o MongoDB.
+		#Invoca o arquivo que faz a conexão com o MongoDB.
 
 		require_once("conexao.php");
 
