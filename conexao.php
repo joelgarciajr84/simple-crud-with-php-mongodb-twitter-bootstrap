@@ -8,4 +8,3 @@
 
 	//Cria a coleção pessoas(Caso nao exista).
 	$pessoas = $banco->pessoas;
-?>
