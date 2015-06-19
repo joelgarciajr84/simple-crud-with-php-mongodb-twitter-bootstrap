@@ -171,7 +171,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			
 			<?php
 
 				foreach ($result as $resultado) {
