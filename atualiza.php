@@ -12,7 +12,7 @@
 
 			$("#singlebutton").on("click", null, function(){
 
-		        return confirm("Tem Certeza?");
+		        return confirm("Tem Certeza que deseja atualizar?");
 		    });
 
 		 });
