@@ -27,9 +27,10 @@
         <meta name="theme-color" content="#ffffff">
   </head>
   <body>
-	 <div  class="well" align="center">
+	 <div align="center" class="well">
+        <h2>Simple MongoDB CRUD using PHP</h2>
 
-		<h2>Simple MongoDB CRUD using PHP</h2>
+
 
 		<ul class="nav nav-pills">
 			<li class="active"><a href="#">Create</a></li>
