@@ -1,2 +1,3 @@
-## Simples Crud usando PHP com MongoDB e Twitter Bootstrap
+# Simple MongoDB CRUD using PHP
 
+sudo apt-get install php5-mongo

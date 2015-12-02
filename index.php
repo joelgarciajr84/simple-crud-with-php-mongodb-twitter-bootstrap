@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CRUD SIMPLES COM PHP + MongoDB + Bootstrap</title>
+    <title>Simple MongoDB CRUD using PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -11,19 +11,19 @@
   <body>
 	 <div  class="well" align="center">
 
-		<h2>CRUD SIMPLES COM PHP + MongoDB + Twitter Bootstrap</h2>
+		<h2>Simple MongoDB CRUD using PHP</h2>
 
 		<ul class="nav nav-pills">
-			<li class="active"><a href="#">Cadastrar</a></li>
-			<li><a href="atualiza.php">Atualizar</a></li>
-			<li><a href="deleta.php">Deletar</a></li>
+			<li class="active"><a href="#">Create</a></li>
+			<li><a href="update.php">Update</a></li>
+			<li><a href="delete.php">Delete</a></li>
 		</ul>
 	</div>
 	<?php
 
 		#Invoca o arquivo que faz a conexão com o MongoDB.
 
-		require_once("conexao.php");
+		require_once("connection.php");
 
 		// Capta os dados do formulário.
 
@@ -56,60 +56,61 @@
 	?>
 
 	<form id="mostradados" name="exibedados" class="form-horizontal" action="<?php $_SERVER['REQUEST_URI']?>" method="post">
-		
+
 		<fieldset>
+            <legend>Create page</legend>
 
 		<div class="control-group">
 
-		  <label class="control-label" for="nome">Nome</label>
+		  <label class="control-label" for="nome">Name</label>
 		  <div class="controls">
-		    <input  autocomplete="off" id="nomeid"  name="nome" type="text" placeholder="Seu nome" class="input-xlarge" required>
+		    <input  autocomplete="off" id="nomeid"  name="nome" type="text" placeholder="Your name" class="input-xlarge" required>
 		  </div>
 		</div>
 
 		<div class="control-group">
 		  <label class="control-label" for="email">Email</label>
 		  <div class="controls">
-		    <input  autocomplete="off" id="email" name="email" type="email" placeholder="Seu email" class="input-xlarge" required>
-		    
+		    <input  autocomplete="off" id="email" name="email" type="email" placeholder="Your e-mail" class="input-xlarge" required>
+
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="cidade">Cidade</label>
+		  <label class="control-label" for="cidade">City</label>
 		  <div class="controls">
-		    <input  autocomplete="off" id="cidade" name="cidade" type="text" placeholder="Sua Cidade" class="input-xlarge" required>
+		    <input  autocomplete="off" id="cidade" name="cidade" type="text" placeholder="Your City" class="input-xlarge" required>
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="singlebutton">Enviar</label>
+		  <label class="control-label" for="singlebutton">Is it done?</label>
 		  <div class="controls">
-		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Confirmar</button>
+		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Send</button>
 		  </div>
 		</div>
 
 		</fieldset>
 	</form>
 
-	<legend>Exibição dos Dados</legend>
+	<legend>Showing the Data</legend>
 
 	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Cidade</th>
-				<th>Data do Cadastro</th>
-				<th>Ações</th>
+				<th>Name</th>
+				<th>E-mail</th>
+				<th>City</th>
+				<th>Date of Register</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			
+
 			<?php
 				//Realiza um loop em result para exibir separadamente cada campo dos documentos cadastrados.
-			
+
 				foreach ($result as $resultado) {
 
 
@@ -121,9 +122,9 @@
 						echo '<td>'. $resultado["criadoem"]. '</td>';
 						echo ' <td>
 
-						<a href="atualiza.php?id='.$resultado["_id"].'" title="Alterar Dados">Editar</a>
-						<a href="deleta.php?id='.$resultado["_id"].'" title="Deletar Dados">Deletar</a>
-						
+						<a href="update.php?id='.$resultado["_id"].'" title="Alterar Dados">Edit</a>
+						<a href="delete.php?id='.$resultado["_id"].'" title="Deletar Dados">Delete</a>
+
 						</td>';
 					echo '</tr>';
 				}

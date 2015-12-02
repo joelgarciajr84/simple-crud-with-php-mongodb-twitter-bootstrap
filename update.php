@@ -1,7 +1,7 @@
  <!DOCTYPE html>
  <html>
   <head>
-    <title>CRUD SIMPLES COM PHP + MongoDB + Twitter Bootstrap</title>
+    <title>Simple MongoDB CRUD using PHP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -12,29 +12,31 @@
 
 			$("#singlebutton").on("click", null, function(){
 
-		        return confirm("Tem Certeza?");
+		        return confirm("Are you SURE?");
 		    });
-		});
+
+		 });
 	</script>
   </head>
   <body>
- 	<div  class="well" align="center">
 
-		<h2>CRUD SIMPLES COM PHP + MongoDB + Twitter Bootstrap</h2>
+    <div  class="well" align="center">
+
+		<h2>Simple MongoDB CRUD using PHP</h2>
 
 		<ul class="nav nav-pills">
-			<li><a href="index.php">Cadastrar</a></li>
-			<li><a href="atualiza.php">Atualizar</a></li>
-			<li class="active"><a href="#">Deletar</a></li>
+			<li><a href="index.php">Create</a></li>
+			<li class="active"><a href="#">Update</a></li>
+			<li><a href="delete.php">Delete</a></li>
 		</ul>
     </div>
 	<?php
 
-		// Invoca o arquivo que faz a conexão com o MongoDB
+		// Invoca o arquivo que realiza a conexão com o MongoDB.
 
-		require_once("conexao.php");
+		require_once("connection.php");
 
-		//Capta os Dados para exclusão
+		//Capta os dados solicitados para edição.
 
 		if (!empty($_GET['id'])) {
 
@@ -59,15 +61,15 @@
 
 		}else{
 
+			echo '<span class="label label-warning">Choose a registry to edit</span>';
 
-			echo '<span class="label label-warning">Escolha um Registro para Deletar</span>';
 		}
 
-		//Deletando o Documento solicitado
+		//Salvando a edição dos Dados.
 
 		if(!is_null( $_POST['nome']) && !is_null( $_POST['email']) && !is_null($_POST['cidade'])) {
 
-			// Capta Dados
+			//Capta os dados que foram editados (ou não) pelo usuário.
 
 			$PegaID = $_POST['id'];
 			$PegaData = $_POST['criacao'];
@@ -76,11 +78,15 @@
 			$AtualizaCidade = $_POST['cidade'];
 
 
-			//Prepara Documento a ser deletado.
+			//$Atualizador passa a ser nosso parametro de busca na Collection, novamente algo como WHERE no SQL.
 
 			$atualizador = array('_id' => 'id');
 
+			//Realiza a busca na Collection pessoas passando o parametro $atualizador.
+
 			$AtPessoa = $pessoas->findOne($atualizador);
+
+			//Popula o $AtPessoa com os novos dados a serem inseridos
 
 			$AtPessoa['Nome'] = $AtualizaNome;
 			$AtPessoa['Email'] = $AtualizaEmail;
@@ -90,80 +96,81 @@
 
 
 
-			//Delete o Documento questão da Collection pessoas.
+			//Atualiza o Documento com os dados em $AtPessoa
 
-			$pessoas->remove($AtPessoa);
+			$pessoas->save($AtPessoa);
+
+
 		}
-		
-		//Le a coleção Pessoas
+
+		//Le a coleção Pessoas algo como SELECT * FROM no SQL.
 
 		$result = $pessoas->find();
+	?>
 
-	 ?>
-
-	  <form id="mostradados" name="exibedados" class="form-horizontal" action="deleta.php" method="post">
+	  <form id="mostradados" name="exibedados" class="form-horizontal" action="update.php" method="post">
 		<fieldset>
+		<legend>Edit page</legend>
 
 		<div class="control-group">
 		  <label class="control-label" for="id">ID</label>
 		  <div class="controls">
-		    <input autocomplete="off" id="pessoaid" value="<?php echo $id; ?>"  name="id" type="text" placeholder="Seu nome" class="input-xlarge" readonly>
+		    <input autocomplete="off" id="pessoaid" value="<?php echo $id; ?>"  name="id" type="text" placeholder="ID" class="input-xlarge" readonly>
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="criacao">Data Criação</label>
+		  <label class="control-label" for="criacao">Registration date</label>
 		  <div class="controls">
-		    <input autocomplete="off" id="criacao" value="<?php echo $criado; ?>"  name="criacao" type="text" placeholder="Seu nome" class="input-xlarge" readonly>
+		    <input autocomplete="off" id="criacao" value="<?php echo $criado; ?>"  name="criacao" type="text" placeholder="Registration date" class="input-xlarge" readonly>
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="nome">Nome</label>
+		  <label class="control-label" for="nome">Name</label>
 		  <div class="controls">
-		    <input  autocomplete="off" id="nomeid" value="<?php echo $nome; ?>"  name="nome" type="text" placeholder="Seu nome" class="input-xlarge" readonly>
+		    <input  autocomplete="off" id="nomeid" value="<?php echo $nome; ?>"  name="nome" type="text" placeholder="Name" class="input-xlarge" required>
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="email">Email</label>
+		  <label class="control-label" for="email">E-mail</label>
 		  <div class="controls">
-		    <input autocomplete="off" id="email" value="<?php echo $email; ?>" name="email" type="email" placeholder="Seu email" class="input-xlarge" readonly>
-		    
+		    <input autocomplete="off" id="email" value="<?php echo $email; ?>" name="email" type="email" placeholder="E-mail" class="input-xlarge" required>
+
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="cidade">Cidade</label>
+		  <label class="control-label" for="cidade">City</label>
 		  <div class="controls">
-		    <input autocomplete="off" id="cidade" value="<?php echo $cidade; ?>" name="cidade" type="text" placeholder="Sua Cidade" class="input-xlarge" readonly>
+		    <input autocomplete="off" id="cidade" value="<?php echo $cidade; ?>" name="cidade" type="text" placeholder="City" class="input-xlarge" required>
 		  </div>
 		</div>
 
 		<div class="control-group">
-		  <label class="control-label" for="singlebutton">Enviar</label>
+		  <label class="control-label" for="singlebutton">Is it done?</label>
 		  <div class="controls">
-		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Deletar</button>
+		    <button id="singlebutton" name="singlebutton" class="btn btn-primary">Send</button>
 		  </div>
 		</div>
 
 		</fieldset>
 	</form>
-	<legend>Exibição dos Dados</legend>
+	<legend>Showing the Data</legend>
 
 	<table id="dlg" class="table table-striped">
 		<thead>
 			<tr>
 				<th>ID</th>
-				<th>Nome</th>
-				<th>Email</th>
-				<th>Cidade</th>
-				<th>Data do Cadastro</th>
-				<th>Ações</th>
+				<th>Name</th>
+				<th>E-mail</th>
+				<th>City</th>
+				<th>Date of register</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			
 			<?php
 
 				foreach ($result as $resultado) {
@@ -175,9 +182,9 @@
 						echo '<td>'. $resultado["criadoem"]. '</td>';
 						echo ' <td>
 
-						<a href="atualiza.php?id='.$resultado["_id"].'" title="Alterar Dados">Editar</a>
-						<a class="delete" href="deleta.php?id='.$resultado["_id"].'" title="Deletar Dados">Deletar</a>
-						
+						<a href="update.php?id='.$resultado["_id"].'" title="Alterar Dados">Edit</a>
+						<a href="delete.php?id='.$resultado["_id"].'" title="Deletar Dados">Delete</a>
+
 
 						</td>';
 					echo '</tr>';
