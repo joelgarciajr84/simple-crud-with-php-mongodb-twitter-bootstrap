@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	// Estabelece uma conexão com o MongoDB -> http://php.net/manual/pt_BR/class.mongoclient.php
 	$conexao = new MongoClient();
