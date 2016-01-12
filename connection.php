@@ -1,10 +1,13 @@
 <?php
-
+/*
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+*/
 	// Estabelece uma conexão com o MongoDB -> http://php.net/manual/pt_BR/class.mongoclient.php
-	$conexao = new MongoClient();
+	$MongoDBConnection = new MongoClient();
 
 	// Seleciona um banco, caso não exista o MongoDB cria.
-	$banco = $conexao->selectDB('SimpleCrud');
+	$DB = $MongoDBConnection->selectDB('SimpleCrud');
 
 	//Cria a coleção pessoas(Caso nao exista).
-	$pessoas = $banco->pessoas;
+	$pessoas = $DB->pessoas;
