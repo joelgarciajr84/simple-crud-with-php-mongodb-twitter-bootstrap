@@ -23,5 +23,8 @@ if(empty($UrlAction)){
 
 			<li <?php if($Action == $UrlAction){ echo "class='active'";}?>><a href="<?php echo $Action; ?>"><?php echo $Label; ?></a></li>
 			<?php endforeach; ?>
+            <li><input id="search" onkeyup="searchmongo(this.value)" placeholder="Type something to search" type="text"></li>
 		</ul>
+        <p>Results: <span id="results"></span></p>
+
 	</div>

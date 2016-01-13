@@ -16,7 +16,7 @@
 				"Email"		=>	$email,
 				"Cidade"	=>	$cidade,
 				"criadoem"	=> 	$datacriacao,
-				"_id"		=>	md5($nome)
+				"_id"		=>	crypt($email,md5($nome))
 			);
 
 		// Insere o array $addpessoas na coleção pessoas.
