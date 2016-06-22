@@ -1,5 +1,4 @@
 <?php include 'header.php';
-		// Capta os dados do formulário.
 
 		if(!is_null( $_POST['nome']) && !is_null( $_POST['email']) && !is_null($_POST['cidade'])) {
 
